@@ -2097,7 +2097,8 @@
       "q": 3,
       "p": 4,
       "tags": [
-        0
+        0,
+        3
       ],
       "url": "https://meyda.education.gov.il/sheeloney_bagrut/2023/6/HEB/899371.pdf",
       "codes": [
@@ -3092,7 +3093,8 @@
       "tags": [
         1,
         9,
-        10
+        10,
+        11
       ],
       "url": "https://meyda.education.gov.il/sheeloney_bagrut/2021/6/HEB/899381.pdf",
       "codes": [
@@ -10989,7 +10991,8 @@
       "p": 2,
       "tags": [
         5,
-        10
+        10,
+        11
       ],
       "url": "https://meyda.education.gov.il/sheeloney_bagrut/2013/6/HEB/899205.pdf",
       "codes": [
@@ -11122,7 +11125,8 @@
       "p": 16,
       "tags": [
         1,
-        15
+        15,
+        16
       ],
       "url": "https://meyda.education.gov.il/sheeloney_bagrut/2013/6/HEB/899205.pdf",
       "codes": [

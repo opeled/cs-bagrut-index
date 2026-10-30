@@ -35,3 +35,7 @@ assert 9 not in byid['2011-06-899205-q2']['tags']
 assert 9 not in byid['2026-06-899271-q12']['tags']
 assert sum(bool(q.get('mirror')) for q in qs)==10
 print('Validated 770 questions, 56 exams, 23 topics, page ranges and reconciled headings.')
+
+# Semantic corrections found during the 130-link independent spot check.
+for key,tag in {"2013-06-899205-q1":11,"2013-06-899205-q7":16,"2021-06-899381-q6":11,"2023-06-899371-q3":3}.items():
+ assert tag in byid[key]["tags"],key
