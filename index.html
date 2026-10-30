@@ -1823,44 +1823,27 @@ const anchor=d=&gt;{
  return variants.map(([label,p])=&gt;`&lt;a href=&quot;${link(d).replace(/#page=\d+$/,`#page=${p}`)}&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;${label} ↗&lt;/a&gt;`).join(&#x27;&lt;br&gt;&#x27;);
 };
 const subject=d=&gt;`${tags(d)}&lt;div class=&quot;ei-small&quot; style=&quot;margin-top:7px&quot;&gt;${d.title}&lt;/div&gt;`;
-const orderedDetails=d=&gt;`&lt;div class=&quot;ei-small&quot;&gt;שאלון 899381 · קיץ ${d.y}&lt;/div&gt;&lt;div class=&quot;ei-small&quot;&gt;עמוד &lt;bdi&gt;${pages(d)}&lt;/bdi&gt;&lt;/div&gt;&lt;div class=&quot;ei-small&quot;&gt;מספר שאלה: ${d.q}&lt;/div&gt;`;
-const header=(title,subtitle)=&gt;`&lt;header&gt;&lt;div class=&quot;ei-kicker&quot;&gt;מדעי המחשב / אינדקס שאלות הבגרות&lt;/div&gt;&lt;h2&gt;${title}&lt;/h2&gt;&lt;div class=&quot;ei-meta&quot;&gt;${subtitle}&lt;br&gt;מדגם ראשוני: 13 שאלות · 3 שאלונים · עברית בלבד · קיץ 2022–2024&lt;br&gt;מספרי שאלות ועמודים נבדקו מול המקור ב־30.10.2026. האינדקס אינו כולל עדיין את כל שאלות הבגרות.&lt;/div&gt;&lt;/header&gt;`;
-root.querySelectorAll(&#x27;[data-layout]&#x27;).forEach(win=&gt;{
- const kind=win.dataset.layout; let page=0,selected=3,filter=&#x27;all&#x27;;
- win.innerHTML=header(kind===&#x27;table&#x27;?&#x27;כל השאלות, במבט אחד&#x27;:kind===&#x27;topics&#x27;?&#x27;מתחילים מהנושא&#x27;:&#x27;בוחרים שאלה לתרגול&#x27;,kind===&#x27;table&#x27;?&#x27;שורה אחת לכל שאלה · כל הנושאים גלויים&#x27;:kind===&#x27;topics&#x27;?&#x27;אותה שאלה זמינה בכל אחד מהנושאים שלה&#x27;:&#x27;כרטיס אחד לכל שאלה · תגית נפרדת לכל נושא&#x27;)+&#x27;&lt;main class=&quot;ei-main&quot;&gt;&lt;/main&gt;&#x27;;
- const main=win.querySelector(&#x27;main&#x27;);
- function render(){
- if(kind===&#x27;topics&#x27;){
- const rows=data.filter(d=&gt;d.t.includes(selected));
- main.innerHTML=`&lt;div class=&quot;ei-browser&quot;&gt;&lt;nav class=&quot;ei-topicnav&quot; aria-label=&quot;בחירת תחום&quot;&gt;${topics.map((t,i)=&gt;`&lt;button class=&quot;cursor-interaction&quot; type=&quot;button&quot; data-topic=&quot;${i}&quot; aria-pressed=&quot;${i===selected}&quot;&gt;&lt;span class=&quot;ei-dot&quot; style=&quot;--topic:${t[1]}&quot;&gt;&lt;/span&gt;&lt;span class=&quot;ei-name&quot;&gt;${t[0]}&lt;/span&gt;&lt;span&gt;${data.filter(d=&gt;d.t.includes(i)).length}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/nav&gt;&lt;div aria-live=&quot;polite&quot;&gt;&lt;div class=&quot;ei-topline&quot;&gt;&lt;div class=&quot;ei-title&quot;&gt;${topics[selected][0]}&lt;/div&gt;&lt;span class=&quot;ei-small&quot;&gt;${rows.length} שאלות במדגם&lt;/span&gt;&lt;/div&gt;${rows.map(d=&gt;`&lt;article class=&quot;ei-topicrow&quot;&gt;&lt;div class=&quot;ei-qhead&quot;&gt;&lt;div class=&quot;ei-title&quot;&gt;${d.title}&lt;/div&gt;&lt;span class=&quot;ei-qnum&quot;&gt;שאלה ${d.q}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;ei-small&quot;&gt;קיץ ${d.y} · שאלון 899381 · עמ׳ &lt;bdi&gt;${pages(d)}&lt;/bdi&gt;&lt;/div&gt;${tags(d)}${anchor(d)}&lt;/article&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ei-note&quot;&gt;מספרי השאלות לפי הנוסח המקורי. הסכומים לפי נושא כוללים חפיפות; במדגם יש 13 שאלות ייחודיות.&lt;/div&gt;`;
- main.querySelectorAll(&#x27;[data-topic]&#x27;).forEach(b=&gt;b.onclick=()=&gt;{selected=Number(b.dataset.topic);render()});return;
- }
- const rows=data.filter(d=&gt;filter===&#x27;all&#x27;||d.t.includes(Number(filter)));const slice=rows.slice(page*6,page*6+6);
- main.innerHTML=`${kind===&#x27;table&#x27;?`&lt;div class=&quot;ei-legend&quot; aria-label=&quot;מקרא נושאים&quot;&gt;${topics.map((_,i)=&gt;badge(i)).join(&#x27;&#x27;)}&lt;/div&gt;`:&#x27;&#x27;}&lt;div class=&quot;ei-topline&quot;&gt;&lt;span class=&quot;ei-small&quot; aria-live=&quot;polite&quot;&gt;${rows.length} שאלות במדגם&lt;/span&gt;&lt;label class=&quot;ei-controls&quot;&gt;תחום &lt;select aria-label=&quot;סינון לפי תחום&quot;&gt;&lt;option value=&quot;all&quot;&gt;כל התחומים&lt;/option&gt;${topics.map((t,i)=&gt;`&lt;option value=&quot;${i}&quot; ${filter===String(i)?&#x27;selected&#x27;:&#x27;&#x27;}&gt;${t[0]}&lt;/option&gt;`).join(&#x27;&#x27;)}&lt;/select&gt;&lt;/label&gt;&lt;/div&gt;${kind===&#x27;table&#x27;?`&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;שאלה ונושאים&lt;/th&gt;&lt;th&gt;שאלון ומועד&lt;/th&gt;&lt;th&gt;עמוד&lt;/th&gt;&lt;th&gt;מקור&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;${slice.map(d=&gt;`&lt;tr&gt;&lt;td&gt;&lt;div class=&quot;ei-title&quot;&gt;${d.q}. ${d.title}&lt;/div&gt;${tags(d)}&lt;/td&gt;&lt;td&gt;899381&lt;br&gt;&lt;span class=&quot;ei-small&quot;&gt;קיץ ${d.y}&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;ei-pages&quot;&gt;&lt;bdi&gt;${pages(d)}&lt;/bdi&gt;&lt;/td&gt;&lt;td&gt;${anchor(d)}&lt;/td&gt;&lt;/tr&gt;`).join(&#x27;&#x27;)}&lt;/tbody&gt;&lt;/table&gt;`:`&lt;div class=&quot;ei-cards&quot;&gt;${slice.map(d=&gt;`&lt;article class=&quot;ei-question&quot;&gt;&lt;div class=&quot;ei-qhead&quot;&gt;&lt;span class=&quot;ei-qnum&quot;&gt;קיץ ${d.y} · 899381&lt;/span&gt;&lt;span class=&quot;ei-qnum&quot;&gt;שאלה ${d.q}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;ei-title&quot;&gt;${d.title}&lt;/div&gt;${tags(d)}&lt;div class=&quot;ei-foot&quot;&gt;&lt;span&gt;עמ׳ &lt;bdi&gt;${pages(d)}&lt;/bdi&gt;&lt;/span&gt;${anchor(d)}&lt;/div&gt;&lt;/article&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`}&lt;div class=&quot;ei-pagination&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;ei-prev cursor-interaction&quot; ${page===0?&#x27;disabled&#x27;:&#x27;&#x27;}&gt;הקודם&lt;/button&gt;&lt;span class=&quot;ei-small&quot;&gt;${page+1} / ${Math.max(1,Math.ceil(rows.length/6))}&lt;/span&gt;&lt;button type=&quot;button&quot; class=&quot;ei-next cursor-interaction&quot; ${(page+1)*6&gt;=rows.length?&#x27;disabled&#x27;:&#x27;&#x27;}&gt;הבא&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;ei-note&quot;&gt;העמודים הם מספרי העמודים בשאלון, התואמים לעמודי ה־PDF במדגם. הקישור נפתח בעמוד תחילת השאלה, בהתאם לתמיכת מציג ה־PDF.&lt;/div&gt;`;
- main.querySelector(&#x27;select&#x27;).onchange=e=&gt;{filter=e.target.value;page=0;render()};main.querySelector(&#x27;.ei-prev&#x27;).onclick=()=&gt;{page--;render()};main.querySelector(&#x27;.ei-next&#x27;).onclick=()=&gt;{page++;render()};
- }
- render();
- const reorder=()=&gt;{
-  if(kind===&#x27;table&#x27;){
-   const table=main.querySelector(&#x27;table&#x27;);
-   if(table){
-    table.querySelector(&#x27;thead tr&#x27;).innerHTML=&#x27;&lt;th&gt;נושא השאלה&lt;/th&gt;&lt;th&gt;שאלון ומועד&lt;/th&gt;&lt;th&gt;עמוד&lt;/th&gt;&lt;th&gt;מספר שאלה&lt;/th&gt;&lt;th&gt;קישור&lt;/th&gt;&#x27;;
-    const rows=data.filter(d=&gt;filter===&#x27;all&#x27;||d.t.includes(Number(filter))).slice(page*6,page*6+6);
-    table.querySelector(&#x27;tbody&#x27;).innerHTML=rows.map(d=&gt;`&lt;tr&gt;&lt;td&gt;${subject(d)}&lt;/td&gt;&lt;td&gt;899381&lt;br&gt;&lt;span class=&quot;ei-small&quot;&gt;קיץ ${d.y}&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;ei-pages&quot;&gt;&lt;bdi&gt;${pages(d)}&lt;/bdi&gt;&lt;/td&gt;&lt;td&gt;${d.q}&lt;/td&gt;&lt;td&gt;${anchor(d)}&lt;/td&gt;&lt;/tr&gt;`).join(&#x27;&#x27;);
-   }
-  }else{
-   const rows=kind===&#x27;topics&#x27;?data.filter(d=&gt;d.t.includes(selected)):data.filter(d=&gt;filter===&#x27;all&#x27;||d.t.includes(Number(filter))).slice(page*6,page*6+6);
-   main.querySelectorAll(kind===&#x27;topics&#x27;?&#x27;.ei-topicrow&#x27;:&#x27;.ei-question&#x27;).forEach((item,i)=&gt;{
-    const d=rows[i];item.innerHTML=`&lt;div&gt;${subject(d)}&lt;/div&gt;${orderedDetails(d)}&lt;div class=&quot;ei-foot&quot;&gt;${anchor(d)}&lt;/div&gt;`;
-   });
-  }
- };
- const originalRender=render;
- render=()=&gt;{originalRender();reorder()};
- reorder();
-});
+const win=root.querySelector(&#x27;[data-layout]&#x27;);
+win.innerHTML=&#x27;&lt;header&gt;&lt;div class=&quot;ei-kicker&quot;&gt;מדעי המחשב / אינדקס שאלות הבגרות&lt;/div&gt;&lt;h2&gt;כל השאלות, במבט אחד&lt;/h2&gt;&lt;div class=&quot;ei-meta&quot;&gt;מדגם ראשוני: 13 שאלות · 3 שאלונים · עברית בלבד · קיץ 2022–2024&lt;/div&gt;&lt;/header&gt;&lt;main class=&quot;ei-main&quot;&gt;&lt;div class=&quot;ei-legend&quot; aria-label=&quot;סינון לפי תחום&quot;&gt;&lt;/div&gt;&lt;div class=&quot;ei-topline&quot;&gt;&lt;span class=&quot;ei-small&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;נושא השאלה&lt;/th&gt;&lt;th&gt;שאלון ומועד&lt;/th&gt;&lt;th&gt;עמוד&lt;/th&gt;&lt;th&gt;מספר שאלה&lt;/th&gt;&lt;th&gt;קישור&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;div class=&quot;ei-note&quot;&gt;העמודים הם מספרי העמודים בשאלון, התואמים לעמודי ה־PDF במדגם. הקישור נפתח בעמוד תחילת השאלה, בהתאם לתמיכת מציג ה־PDF.&lt;/div&gt;&lt;/main&gt;&#x27;;
+let selected=null;
+const legend=win.querySelector(&#x27;.ei-legend&#x27;);
+legend.innerHTML=&#x27;&lt;button type=&quot;button&quot; data-topic=&quot;all&quot;&gt;כל התחומים&lt;/button&gt;&#x27;+topics.map((t,i)=&gt;`&lt;button type=&quot;button&quot; class=&quot;ei-tag&quot; data-topic=&quot;${i}&quot; style=&quot;--topic:${t[1]}&quot;&gt;${t[0]}&lt;/button&gt;`).join(&#x27;&#x27;);
+function render(){
+ const rows=data.filter(d=&gt;selected===null||d.t.includes(selected));
+ win.querySelector(&#x27;.ei-topline span&#x27;).textContent=`${rows.length} שאלות במדגם`;
+ legend.querySelectorAll(&#x27;button&#x27;).forEach(b=&gt;b.setAttribute(&#x27;aria-pressed&#x27;,String(b.dataset.topic===&#x27;all&#x27;?selected===null:Number(b.dataset.topic)===selected)));
+ win.querySelector(&#x27;tbody&#x27;).innerHTML=rows.map(d=&gt;`&lt;tr&gt;&lt;td&gt;${subject(d)}&lt;/td&gt;&lt;td data-label=&quot;שאלון ומועד&quot;&gt;899381&lt;br&gt;&lt;span class=&quot;ei-small&quot;&gt;קיץ ${d.y}&lt;/span&gt;&lt;/td&gt;&lt;td data-label=&quot;עמוד&quot; class=&quot;ei-pages&quot;&gt;&lt;bdi&gt;${pages(d)}&lt;/bdi&gt;&lt;/td&gt;&lt;td data-label=&quot;מספר שאלה&quot;&gt;${d.q}&lt;/td&gt;&lt;td data-label=&quot;קישור&quot;&gt;${anchor(d)}&lt;/td&gt;&lt;/tr&gt;`).join(&#x27;&#x27;);
+}
+legend.querySelectorAll(&#x27;button&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const next=b.dataset.topic===&#x27;all&#x27;?null:Number(b.dataset.topic);selected=selected===next?null:next;render()});
+render();
 })();
 &lt;/script&gt;
+&lt;style&gt;
+#exam-index .ei-legend button.ei-tag{font-size:13px;border:1px solid transparent;background:color-mix(in srgb,var(--topic) 12%,var(--ei-bg));color:var(--ei-text);padding:8px 10px}
+#exam-index .ei-legend button.ei-tag[aria-pressed=true]{border-color:var(--topic);background:color-mix(in srgb,var(--topic) 25%,var(--ei-bg));box-shadow:0 0 0 1px var(--topic)}
+#exam-index .ei-window{min-height:0}
+@media(max-width:640px){#exam-index td[data-label]:before{content:attr(data-label);display:block;font-size:12px;color:var(--ei-muted);margin-bottom:4px}}
+&lt;/style&gt;
 &lt;/div&gt;
 
 &lt;script src=&quot;https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js&quot;&gt;&lt;/script&gt;
