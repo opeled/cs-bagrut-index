@@ -1,0 +1,76 @@
+<div id="exam-index" dir="rtl">
+<style>
+#exam-index{--ei-bg:light-dark(#ffffff,#20232a);--ei-text:light-dark(#202936,#edf0f6);--ei-muted:light-dark(#586578,#b4bfd0);--ei-line:light-dark(#e1e6ee,#424955);--ei-soft:light-dark(#f5f7fb,#292e38);font-family:Arial,sans-serif;color:var(--ei-text)}
+#exam-index *{box-sizing:border-box}#exam-index .ei-window{background:var(--ei-bg);border:1px solid var(--ei-line);border-radius:16px;min-height:790px;overflow:hidden}#exam-index header{padding:26px 26px 18px;border-bottom:1px solid var(--ei-line)}#exam-index h2{font-size:25px;margin:7px 0 10px;font-weight:600}#exam-index .ei-meta{color:var(--ei-muted);font-size:13px;line-height:1.6}#exam-index .ei-kicker{font-size:12px;letter-spacing:.8px;color:var(--ei-muted)}#exam-index .ei-main{padding:20px 26px}#exam-index .ei-legend{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 18px}#exam-index .ei-tag{display:inline-flex;align-items:center;gap:5px;border-radius:6px;padding:5px 8px;background:color-mix(in srgb,var(--topic) 12%,var(--ei-bg));font-size:12px;white-space:nowrap;color:var(--ei-text)}#exam-index .ei-tag:before{content:'';width:7px;height:7px;border-radius:50%;background:var(--topic)}#exam-index .ei-tags{display:flex;gap:5px;flex-wrap:wrap}#exam-index .ei-topline{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px;flex-wrap:wrap}#exam-index button,#exam-index select{font:inherit;color:var(--ei-text);background:var(--ei-bg);border:1px solid var(--ei-line);padding:8px 12px;border-radius:7px}#exam-index button[aria-pressed=true]{background:var(--ei-text);color:var(--ei-bg)}#exam-index a{color:light-dark(#235aa6,#98bfff);text-decoration:none}#exam-index a:hover{text-decoration:underline}#exam-index table{width:100%;border-collapse:collapse;text-align:right;font-size:14px}#exam-index th{background:var(--ei-soft);font-size:12px;color:var(--ei-muted);font-weight:400}#exam-index td,#exam-index th{padding:13px 10px;border-bottom:1px solid var(--ei-line);vertical-align:top}#exam-index .ei-title{font-size:14px;font-weight:600;margin-bottom:7px}#exam-index .ei-small{font-size:12px;color:var(--ei-muted);line-height:1.6}#exam-index .ei-pages{white-space:nowrap;line-height:1.8}#exam-index .ei-pagination{display:flex;align-items:center;gap:10px;justify-content:center;margin-top:20px}#exam-index .ei-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}#exam-index .ei-question{border:1px solid var(--ei-line);border-radius:12px;padding:18px;background:var(--ei-bg);display:flex;flex-direction:column;gap:13px}#exam-index .ei-question .ei-title{font-size:17px;margin:0}#exam-index .ei-qhead{display:flex;justify-content:space-between;gap:12px}#exam-index .ei-qnum{font-size:12px;color:var(--ei-muted)}#exam-index .ei-foot{margin-top:auto;border-top:1px solid var(--ei-line);padding-top:12px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:13px}#exam-index .ei-browser{display:grid;grid-template-columns:190px minmax(0,1fr);gap:22px}#exam-index .ei-topicnav{display:flex;flex-direction:column;gap:7px}#exam-index .ei-topicnav button{display:flex;align-items:center;justify-content:space-between;text-align:right;font-size:13px;padding:10px;gap:4px}#exam-index .ei-topicnav .ei-dot{width:8px;height:8px;background:var(--topic);border-radius:50%;flex-shrink:0}#exam-index .ei-topicnav .ei-name{flex:1}#exam-index .ei-topicrow{padding:18px 0;border-bottom:1px solid var(--ei-line)}#exam-index .ei-topicrow:first-child{padding-top:0}#exam-index .ei-topicrow .ei-tags{margin:10px 0}#exam-index .ei-note{margin-top:18px;font-size:12px;color:var(--ei-muted);line-height:1.7}#exam-index .ei-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}#exam-index label{font-size:13px}#exam-index [hidden]{display:none!important}
+@media(max-width:640px){#exam-index header,#exam-index .ei-main{padding:18px 14px}#exam-index .ei-cards{grid-template-columns:1fr}#exam-index .ei-browser{grid-template-columns:1fr}#exam-index .ei-topicnav{display:grid;grid-template-columns:1fr 1fr}#exam-index .ei-window{min-height:1450px}#exam-index table thead{display:none}#exam-index table tr{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--ei-line);padding:10px 0}#exam-index td{border:0;padding:6px}#exam-index td:first-child{grid-column:1/-1}#exam-index h2{font-size:23px}}
+</style>
+<div>
+<section data-variant="טבלה עם תגיות"><div class="ei-window" data-layout="table" aria-label="טבלה עם תגיות"></div></section>
+</div>
+<script>
+(()=>{
+const root=document.getElementById('exam-index');
+const topics=[['מודלים חישוביים','#8b5cf6'],['אסמבלי','#b87b20'],['מחסניות','#d34a67'],['רשימות מקושרות','#259871'],['רקורסיה','#ca5c26'],['תור','#219bb4'],['תכנות מונחה עצמים','#b34bb0'],['מערכים','#427cdd'],['סיבוכיות','#858527']];
+const data=[
+{y:2024,q:6,p:8,end:9,title:'מעקב ומחיקת ערכים בשרשרת',t:[3,4,8],pages:'Java: 8 · C#: 9'},
+{y:2024,q:7,p:10,title:'קווים העוברים בכל תחנות האוטובוס',t:[7,3,6]},
+{y:2022,q:9,p:18,title:'בדיקת מערך זוגי יורד באסמבלי',t:[1,7]},
+{y:2022,q:6,p:10,end:13,title:'מעקב אחר פעולות על מחסנית',t:[2,4,8],pages:'Java: 10–11 · C#: 12–13'},
+{y:2023,q:4,p:5,title:'שני מספרים בתור שסכומם נתון',t:[5]},
+{y:2024,q:10,p:13,title:'שפות פורמליות ואוטומט סופי',t:[0]},
+{y:2024,q:11,p:14,title:'פעולות על שפות ואוטומט מחסנית',t:[0]},
+{y:2024,q:12,p:16,end:17,title:'ירושה והכלה במערכת השכרת רכב',t:[6],pages:'16–17 · Java'},
+{y:2024,q:2,p:3,title:'שיבוץ חברי כנסת בוועדות',t:[6,7]},
+{y:2024,q:4,p:5,title:'איברי קסם בתור',t:[5]},
+{y:2023,q:1,p:2,title:'בדיקת סדר המספרים החיוביים',t:[7]},
+{y:2022,q:5,p:8,end:9,title:'מחסנית ערכים ומחסנית סכומים',t:[2,6]},
+{y:2024,q:1,p:2,title:'סכום מרבי בין אפסים במערך',t:[7]}
+];
+const link=d=>`https://meyda.education.gov.il/sheeloney_bagrut/${d.y}/6/HEB/899381.pdf#page=${d.p}`;
+const badge=i=>`<span class="ei-tag" style="--topic:${topics[i][1]}">${topics[i][0]}</span>`;
+const tags=d=>`<div class="ei-tags">${d.t.map(badge).join('')}</div>`;
+const pages=d=>d.pages||`${d.p}${d.end?'–'+d.end:''}`;
+const anchor=d=>{
+ const variants=d.y===2024&&d.q===6?[['Java',8],['C#',9]]:d.y===2022&&d.q===6?[['Java',10],['C#',12]]:[['פתיחת השאלון',d.p]];
+ return variants.map(([label,p])=>`<a href="${link(d).replace(/#page=\d+$/,`#page=${p}`)}" target="_blank" rel="noopener">${label} ↗</a>`).join('<br>');
+};
+const subject=d=>`${tags(d)}<div class="ei-small" style="margin-top:7px">${d.title}</div>`;
+const orderedDetails=d=>`<div class="ei-small">שאלון 899381 · קיץ ${d.y}</div><div class="ei-small">עמוד <bdi>${pages(d)}</bdi></div><div class="ei-small">מספר שאלה: ${d.q}</div>`;
+const header=(title,subtitle)=>`<header><div class="ei-kicker">מדעי המחשב / אינדקס שאלות הבגרות</div><h2>${title}</h2><div class="ei-meta">${subtitle}<br>מדגם ראשוני: 13 שאלות · 3 שאלונים · עברית בלבד · קיץ 2022–2024<br>מספרי שאלות ועמודים נבדקו מול המקור ב־30.10.2026. האינדקס אינו כולל עדיין את כל שאלות הבגרות.</div></header>`;
+root.querySelectorAll('[data-layout]').forEach(win=>{
+ const kind=win.dataset.layout; let page=0,selected=3,filter='all';
+ win.innerHTML=header(kind==='table'?'כל השאלות, במבט אחד':kind==='topics'?'מתחילים מהנושא':'בוחרים שאלה לתרגול',kind==='table'?'שורה אחת לכל שאלה · כל הנושאים גלויים':kind==='topics'?'אותה שאלה זמינה בכל אחד מהנושאים שלה':'כרטיס אחד לכל שאלה · תגית נפרדת לכל נושא')+'<main class="ei-main"></main>';
+ const main=win.querySelector('main');
+ function render(){
+ if(kind==='topics'){
+ const rows=data.filter(d=>d.t.includes(selected));
+ main.innerHTML=`<div class="ei-browser"><nav class="ei-topicnav" aria-label="בחירת תחום">${topics.map((t,i)=>`<button class="cursor-interaction" type="button" data-topic="${i}" aria-pressed="${i===selected}"><span class="ei-dot" style="--topic:${t[1]}"></span><span class="ei-name">${t[0]}</span><span>${data.filter(d=>d.t.includes(i)).length}</span></button>`).join('')}</nav><div aria-live="polite"><div class="ei-topline"><div class="ei-title">${topics[selected][0]}</div><span class="ei-small">${rows.length} שאלות במדגם</span></div>${rows.map(d=>`<article class="ei-topicrow"><div class="ei-qhead"><div class="ei-title">${d.title}</div><span class="ei-qnum">שאלה ${d.q}</span></div><div class="ei-small">קיץ ${d.y} · שאלון 899381 · עמ׳ <bdi>${pages(d)}</bdi></div>${tags(d)}${anchor(d)}</article>`).join('')}</div></div><div class="ei-note">מספרי השאלות לפי הנוסח המקורי. הסכומים לפי נושא כוללים חפיפות; במדגם יש 13 שאלות ייחודיות.</div>`;
+ main.querySelectorAll('[data-topic]').forEach(b=>b.onclick=()=>{selected=Number(b.dataset.topic);render()});return;
+ }
+ const rows=data.filter(d=>filter==='all'||d.t.includes(Number(filter)));const slice=rows.slice(page*6,page*6+6);
+ main.innerHTML=`${kind==='table'?`<div class="ei-legend" aria-label="מקרא נושאים">${topics.map((_,i)=>badge(i)).join('')}</div>`:''}<div class="ei-topline"><span class="ei-small" aria-live="polite">${rows.length} שאלות במדגם</span><label class="ei-controls">תחום <select aria-label="סינון לפי תחום"><option value="all">כל התחומים</option>${topics.map((t,i)=>`<option value="${i}" ${filter===String(i)?'selected':''}>${t[0]}</option>`).join('')}</select></label></div>${kind==='table'?`<table><thead><tr><th>שאלה ונושאים</th><th>שאלון ומועד</th><th>עמוד</th><th>מקור</th></tr></thead><tbody>${slice.map(d=>`<tr><td><div class="ei-title">${d.q}. ${d.title}</div>${tags(d)}</td><td>899381<br><span class="ei-small">קיץ ${d.y}</span></td><td class="ei-pages"><bdi>${pages(d)}</bdi></td><td>${anchor(d)}</td></tr>`).join('')}</tbody></table>`:`<div class="ei-cards">${slice.map(d=>`<article class="ei-question"><div class="ei-qhead"><span class="ei-qnum">קיץ ${d.y} · 899381</span><span class="ei-qnum">שאלה ${d.q}</span></div><div class="ei-title">${d.title}</div>${tags(d)}<div class="ei-foot"><span>עמ׳ <bdi>${pages(d)}</bdi></span>${anchor(d)}</div></article>`).join('')}</div>`}<div class="ei-pagination"><button type="button" class="ei-prev cursor-interaction" ${page===0?'disabled':''}>הקודם</button><span class="ei-small">${page+1} / ${Math.max(1,Math.ceil(rows.length/6))}</span><button type="button" class="ei-next cursor-interaction" ${(page+1)*6>=rows.length?'disabled':''}>הבא</button></div><div class="ei-note">העמודים הם מספרי העמודים בשאלון, התואמים לעמודי ה־PDF במדגם. הקישור נפתח בעמוד תחילת השאלה, בהתאם לתמיכת מציג ה־PDF.</div>`;
+ main.querySelector('select').onchange=e=>{filter=e.target.value;page=0;render()};main.querySelector('.ei-prev').onclick=()=>{page--;render()};main.querySelector('.ei-next').onclick=()=>{page++;render()};
+ }
+ render();
+ const reorder=()=>{
+  if(kind==='table'){
+   const table=main.querySelector('table');
+   if(table){
+    table.querySelector('thead tr').innerHTML='<th>נושא השאלה</th><th>שאלון ומועד</th><th>עמוד</th><th>מספר שאלה</th><th>קישור</th>';
+    const rows=data.filter(d=>filter==='all'||d.t.includes(Number(filter))).slice(page*6,page*6+6);
+    table.querySelector('tbody').innerHTML=rows.map(d=>`<tr><td>${subject(d)}</td><td>899381<br><span class="ei-small">קיץ ${d.y}</span></td><td class="ei-pages"><bdi>${pages(d)}</bdi></td><td>${d.q}</td><td>${anchor(d)}</td></tr>`).join('');
+   }
+  }else{
+   const rows=kind==='topics'?data.filter(d=>d.t.includes(selected)):data.filter(d=>filter==='all'||d.t.includes(Number(filter))).slice(page*6,page*6+6);
+   main.querySelectorAll(kind==='topics'?'.ei-topicrow':'.ei-question').forEach((item,i)=>{
+    const d=rows[i];item.innerHTML=`<div>${subject(d)}</div>${orderedDetails(d)}<div class="ei-foot">${anchor(d)}</div>`;
+   });
+  }
+ };
+ const originalRender=render;
+ render=()=>{originalRender();reorder()};
+ reorder();
+});
+})();
+</script>
+</div>
