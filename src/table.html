@@ -12,21 +12,39 @@
 const catalog=/*CATALOG*/;
 const {topics,questions}=catalog;
 const root=document.getElementById('exam-index'),legend=root.querySelector('.legend'),tbody=root.querySelector('tbody'),search=root.querySelector('#search');
-let selected=null;
+const selected=new Set();
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const badge=(i,count=false)=>`<button type="button" class="tag" data-topic="${i}" style="--topic:${topics[i].color}" aria-pressed="${selected===i}" title="${esc(topics[i].subtopics)}">${esc(topics[i].name)}${count?` <span>(${questions.filter(q=>q.tags.includes(i)).length})</span>`:''}</button>`;
+const badge=(i,count=false)=>`<button type="button" class="tag" data-topic="${i}" style="--topic:${topics[i].color}" aria-pressed="${selected.has(i)}" title="${esc(topics[i].subtopics)}">${esc(topics[i].name)}${count?` <span>(${questions.filter(q=>q.tags.includes(i)).length})</span>`:''}</button>`;
 function render(){
  const term=search.value.trim().toLocaleLowerCase();
- const rows=questions.filter(q=>(selected===null||q.tags.includes(selected))&&(!term||`${q.codes.join(' ')} ${q.session} ${q.year} ${q.tags.map(i=>topics[i].name+' '+topics[i].subtopics).join(' ')}`.toLocaleLowerCase().includes(term)));
- legend.innerHTML=`<button type="button" class="all" data-topic="all" aria-pressed="${selected===null}">כל הנושאים</button>`+topics.map((_,i)=>badge(i,true)).join('');
- root.querySelector('#result-count').textContent=`${rows.length} שאלות${selected===null?'':' · '+topics[selected].name}`;
+ const chosen=[...selected].sort((a,b)=>a-b);
+ const topicRows=questions.filter(q=>chosen.every(i=>q.tags.includes(i)));
+ const rows=topicRows.filter(q=>!term||`${q.codes.join(' ')} ${q.session} ${q.year} ${q.tags.map(i=>topics[i].name+' '+topics[i].subtopics).join(' ')}`.toLocaleLowerCase().includes(term));
+ const emptyMessage=chosen.length>1&&!topicRows.length
+  ?'לא נמצאו שאלות הכוללות את כל הנושאים שנבחרו. נסו להסיר נושא או לבחור שילוב אחר.'
+  :'לא נמצאו שאלות התואמות לבחירה ולחיפוש. נסו לשנות את החיפוש או להסיר נושא.';
+ legend.innerHTML=`<button type="button" class="all" data-topic="all" aria-pressed="${selected.size===0}">כל הנושאים</button>`+topics.map((_,i)=>badge(i,true)).join('');
+ root.querySelector('#result-count').textContent=`${rows.length} ${rows.length===1?'שאלה':'שאלות'}${chosen.length?' · '+chosen.map(i=>topics[i].name).join(' + '):''}`;
  tbody.innerHTML=rows.length?rows.map(q=>{
   const links=q.variants||[{label:'פתיחת השאלון',page:q.p}];
   const pages=q.variants?q.variants.map(v=>`<bdi>${esc(v.label)}: ${v.page}</bdi>`).join('<br>'):String(q.p);
   return `<tr data-question="${q.id}"><td><div class="tags">${q.tags.map(i=>badge(i)).join('')}</div></td><td data-label="שאלון ומועד"><bdi class="code">${esc(q.codes.join(" / "))}</bdi><br><span class="small">${esc(q.session)}</span></td><td data-label="עמוד" class="page">${pages}</td><td data-label="מספר שאלה">${q.q}</td><td data-label="קישור">${links.map(v=>`<a href="${esc(q.url)}#page=${v.page}" target="_blank" rel="noopener" aria-label="${esc(v.label)} — שאלון ${esc(q.code)}, ${esc(q.session)}, שאלה ${q.q}, עמוד ${v.page}"><bdi>${esc(v.label)}</bdi> ↗</a>`).join('<br>')}${q.mirror?'<span class="mirror">עותק סרוק</span>':''}</td></tr>`;
- }).join(''):'<tr><td class="empty" colspan="5">לא נמצאו שאלות התואמות לחיפוש.</td></tr>';
+ }).join(''):`<tr><td class="empty" colspan="5"><span role="status">${emptyMessage}</span></td></tr>`;
 }
-root.addEventListener('click',e=>{const b=e.target.closest('button[data-topic]');if(!b)return;const inLegend=!!b.closest('.legend');const next=b.dataset.topic==='all'?null:Number(b.dataset.topic);selected=selected===next?null:next;render();if(inLegend){legend.querySelector(`[data-topic="${b.dataset.topic}"]`).focus();}});
+root.addEventListener('click',e=>{
+ const b=e.target.closest('button[data-topic]');
+ if(!b)return;
+ const topic=b.dataset.topic,question=b.closest('tr[data-question]')?.dataset.question;
+ if(topic==='all')selected.clear();
+ else{
+  const next=Number(topic);
+  if(selected.has(next))selected.delete(next);
+  else selected.add(next);
+ }
+ render();
+ const scope=question?tbody.querySelector(`[data-question="${question}"]`):legend;
+ (scope?.querySelector(`[data-topic="${topic}"]`)||legend.querySelector(`[data-topic="${topic}"]`))?.focus();
+});
 search.addEventListener('input',render);
 render();
 })();
